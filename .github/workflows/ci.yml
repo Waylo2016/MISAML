@@ -1,0 +1,40 @@
+#name: ci-rust-and-csharp
+#
+#on:
+#  pull_request: 
+#    branches:
+#      - main
+#        
+#concurrency: 
+#  group: ci-${{github.event.pull_request.number }}
+#  cancel-in-progress: true
+#  
+#env:
+#  DOTNET_VERSION: "10.0.x"
+#  DOTNET_NOLOGO: true
+#  DOTNET_CLI_TELEMETRY_OPTOUT: true
+#  CARGO_TERM_COLOR: always
+#  
+#jobs: 
+#  build: 
+#    name: build rust
+#    
+#    
+#  build: 
+#    name: build csharp
+#    
+#  - name: Checkout
+#    uses: actions/checkout@v4
+#    with: 
+#      ref: ${{ github.head_ref || github.ref_name }}
+#      
+#  - name: Setup .NET
+#    uses: actions/setup-dotnet@v4
+#      with:
+#        dotnet-version: ${{ env.DOTNET_VERSION }}
+#
+#  - name: Check formatting
+#    run: dotnet format MISAML.slnx --verify-no-changes --severity warn
+#    
+#  - name: Build
+#      run: dotnet build MISAML.slnx --no-restore --configuration Release -warnaserror
